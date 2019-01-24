@@ -7,13 +7,18 @@
         $username = $_POST['username'];
         $email = $_POST['email'];
         $password = $_POST['password'];
+        $vkey = md5(time().$username);
         
         $check = $connection->prepare("SELECT `email` FROM `user_info` WHERE `email`=?");
 		$check->bindValue(1, $email);
 		$check->execute();
 
-        if ($_POST['password'] != $_POST['conpassword']){
-            header("Location:register.php?err=" . urlencode("The passwords do not match!"));
+        if (strlen($username) < 5){
+            header("Location:register.php?err=" . urlencode("Username must be atleast 5 characters"));
+            exit();
+        }
+        else if ($_POST['password'] != $_POST['conpassword']){
+            header("Location:register.php?err=" . urlencode("Passwords do not match!"));
             exit();
         }
         else if($check->rowCount() > 0){
@@ -25,8 +30,18 @@
             try
             {
                 $connection->beginTransaction();
-                $sql = "INSERT INTO user_info (username, email, password, verified) VALUES ('$username','$email','$password', 0);";
+                $sql = "INSERT INTO user_info (username, email, password, vkey, verified) VALUES ('$username','$email','$password', '$vkey', 0);";
                 $connection->exec($sql);
+
+                //send mail
+                $subject = "Email verification";
+                $message = "<a href='http://localhost/camagru/verify-email.php?vkey=$vkey'>Register Email";
+                $header = "From: Camagru";
+                
+                mail("$email", "Verify Camagru account", "$message", "$header");
+
+                header('location:register.php');
+
                 $connection->commit();
     
             }
