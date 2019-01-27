@@ -20,7 +20,7 @@
         else if ($_POST['password'] != $_POST['conpassword']){
             echo "Passwords do not match!";
         }
-        else if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/', $password)) {
+        else if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,12}$/', $password)) {
             echo "Password must contain:<br>
             - At least one number<br>
             - At least one letter<br>
