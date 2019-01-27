@@ -1,4 +1,5 @@
 <?php
+    $error = NULL;
     session_start();
 	require 'config/setup.php';
 
@@ -6,39 +7,44 @@
 	{
         $username = $_POST['username'];
         $email = $_POST['email'];
-        $password = $_POST['password'];
+        $password = sha1($_POST['password']);
         $vkey = md5(time().$username);
         
         $check = $connection->prepare("SELECT `email` FROM `user_info` WHERE `email`=?");
 		$check->bindValue(1, $email);
 		$check->execute();
 
-        if (strlen($username) < 5){
-            header("Location:register.php?err=" . urlencode("Username must be atleast 5 characters"));
-            exit();
+        if (strlen($username) < 3){
+            echo "Username must be atleast 3 characters";
         }
         else if ($_POST['password'] != $_POST['conpassword']){
-            header("Location:register.php?err=" . urlencode("Passwords do not match!"));
-            exit();
+            echo "Passwords do not match!";
+        }
+        else if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])$/', $password)) {
+            echo "Password must contain:<br>
+            - At least one number<br>
+            - At least one letter<br>
+            - Contain number, a letter or one of the following: !@#$% <br>
+            - And consist of 6 to 12 characters";
         }
         else if($check->rowCount() > 0){
-            header("Location:register.php?err=" . urlencode("E-mail already in use"));
-            exit();
+            echo "E-mail already in use";
         }
         else
         {
             try
             {
                 $connection->beginTransaction();
-                $sql = "INSERT INTO user_info (username, email, password, vkey, verified) VALUES ('$username','$email','$password', '$vkey', 0);";
-                $connection->exec($sql);
+                $pdo = "INSERT INTO user_info (username, email, password, vkey) VALUES ('$username','$email','$password', '$vkey');";
+                $connection->exec($pdo);
 
                 //send mail
                 $subject = "Email verification";
-                $message = "<a href='http://localhost/camagru/verify-email.php?vkey=$vkey'>Register Email";
+                $message = "Hi $username,<br>
+                <a href='http://localhost:8080/camagru/verify-email.php?vkey=$vkey'>Register Email";
                 $header = "From: Camagru";
                 
-                mail("$email", "Verify Camagru account", "$message", "$header");
+                mail("$email", "$subject", "$message", "$header");
 
                 header('location:register.php');
 
@@ -48,7 +54,7 @@
     
             catch(PDOException $e)
             {
-                echo $sql . "\n" . $e->getMessage();
+                echo $pdo . "\n" . $e->getMessage();
             }
         }
     }
@@ -71,7 +77,7 @@
             <input type="text" name="username" placeholder="Username" required>
             <br>
             
-            <input type="text" name="email" placeholder="E-mail" required>
+            <input type="email" name="email" placeholder="E-mail" required>
             <br>
                  
             <input type="password" name="password" placeholder="Password" required>
@@ -86,4 +92,7 @@
         <p>Already have an account? <a href="login.php">Login</a></p>
 	</div>
 </body>
+<?php
+echo $error
+?>
 </html>

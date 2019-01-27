@@ -1,36 +1,35 @@
-<?php 
-$error = NULL;
-if(isset($_POST['submit'])){
-	//Connect to the database 
-	$mysqli = NEW MySQLi ('localhost', 'root','','test');
-	
-	//Get form data
-	 $username = $mysqli->real_escape_string ($_POST['username']); 
-	 $password = $mysqli->real_escape_string ($_POST['password']); 
-	 $password = md5 ($password);
-	
-	 //query the database 
-	$resultSet = $mysqli->query("SELECT * FROM user_info WHERE username = '$username' AND password = '$password' LIMIT 1");
-	if ($resultSet->num_rows !=0) {
-		//Process Login
-		 $row = $resultSet->fetch_assoc(); 
-		 $verified = $row['verified'];
-		 $email = $row['email'];
-		
-		 if ($verified == 1) {
-			//Continue Processing
-			echo "Your account is verified you have been logged in";
-		 }
-		 else{ 
-			 echo "This account is not yet been verified";
-		 }
-	}
-	else{
-	//Invalid credentials
- 	$error = "The username or password you entered is incorrect";
-	}
-?>
+<?php
 
+$error = NULL;
+
+require 'config/setup.php';
+session_start();  
+ 
+if(isset($_POST["login"]))  
+{
+     $username = $_POST['username'];
+     $password = sha1($_POST['password']);
+
+     $resultset = $pdo->query("SELECT * FROM user_info WHERE username = '$username' AND password = '$password' LIMIT 1");
+
+     if($resultset->num_rows != 0){
+          $row = $resultset->fetch_assoc();
+          $verified = $row['verified'];
+          $email = $row['email'];
+
+          if($verified == 1){
+               echo "Your account is verified and you have now been logged in";
+               
+          }
+          else{
+               $error = "This account has not yet been verified. An email was sent to $email to $username";
+          }
+     }
+     else{
+          $error = "The username or password you entered is incorrect";
+     }
+}
+?>
 
 <!DOCTYPE html>
 <html>
@@ -51,9 +50,10 @@ if(isset($_POST['submit'])){
 			<input type="password" name="password" placeholder="Password">
 			<br>
 
-			<input type="submit" value="Login">
+			<input type="submit" name="login" value="login">
 		</form>
 		<p>Not registered yet? <a href="register.php">Sign up</a></p>
 	</div>
+<?php echo $error; ?>
 </body>
 </html>
