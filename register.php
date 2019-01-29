@@ -20,13 +20,11 @@
         else if ($_POST['password'] != $_POST['conpassword']){
             echo "Passwords do not match!";
         }
-        else if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{6,12}$/', $password)) {
-            echo "Password must contain:<br>
-            - At least one number<br>
-            - At least one letter<br>
-            - Contain number, a letter or one of the following: !@#$% <br>
-            - And consist of 6 to 12 characters";
-        }
+        //else if(!preg_match('/(?=.*?[0-9])(?=.*?[A-Za-z])(?=.*[^0-9A-Za-z]).+', $password)) { 
+        //    echo "Password must contain:<br>
+        //    - At least one number<br>
+        //    - At least one letter";
+        //}
         else if($check->rowCount() > 0){
             echo "E-mail already in use";
         }
@@ -35,18 +33,21 @@
             try
             {
                 $connection->beginTransaction();
-                $pdo = "INSERT INTO user_info (username, email, password, vkey) VALUES ('$username','$email','$password', '$vkey');";
-                $connection->exec($pdo);
+                $sql = "INSERT INTO user_info (username, email, password, vkey) VALUES ('$username','$email','$password', '$vkey');";
+                if($sql){
+                    echo "An email verification has been sent to your email";
+                }
+                $connection->exec($sql);
 
                 //send mail
                 $subject = "Email verification";
-                $message = "Hi $username,<br>
-                <a href='http://localhost:8080/camagru/verify-email.php?vkey=$vkey'>Register Email";
-                $header = "From: Camagru";
-                
-                mail("$email", "$subject", "$message", "$header");
+                $message = "<a href='http://localhost:8080/camagru/verify-email.php?vkey=$vkey'>Register Account</a>";
+                $headers = "From: Camagru@rfourie.co.za \r\n";
+                $headers .= "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                mail("$email", "$subject", "$message", "$headers");
 
-                header('location:register.php');
+                //header('location:login.php');
 
                 $connection->commit();
     
@@ -54,7 +55,7 @@
     
             catch(PDOException $e)
             {
-                echo $pdo . "\n" . $e->getMessage();
+                echo $sql . "\n" . $e->getMessage();
             }
         }
     }

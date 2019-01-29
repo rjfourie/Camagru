@@ -1,18 +1,19 @@
 <?php
-include 'config/setup.php';
+require 'config/setup.php';
+
 if(isset($_GET['vkey'])){
     $vkey = $_GET['vkey'];
 
-    $resultset = $pdo->query("SELECT verified,vkey FROM user_info WHERE verified  = 0 AND vkey = '$vkey' LIMIT 1");
+    $resultset = $connection->query("SELECT verified,vkey FROM user_info WHERE verified  = 0 AND vkey = '$vkey' LIMIT 1");
 
-    if($resultset->num_rows == 1){
-        $update = $pdo->query("UPDATE user_info SET verified = 1 WHERE vkey = '$vkey' LIMIT 1");
+    if(sizeof($resultset) == 1){
+        $update = $connection->query("UPDATE user_info SET verified = 1 WHERE vkey = '$vkey' LIMIT 1");
         
         if($update){
-            echo "Your account has been verified. You may now login";
+            header("Location:login.php?success=you_may_login");
         }
         else{
-            echo $pdo->error;
+            echo $connection->error;
         }
     }
     else{

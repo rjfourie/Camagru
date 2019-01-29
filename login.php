@@ -10,23 +10,23 @@ if(isset($_POST["login"]))
      $username = $_POST['username'];
      $password = sha1($_POST['password']);
 
-     $resultset = $pdo->query("SELECT * FROM user_info WHERE username = '$username' AND password = '$password' LIMIT 1");
+     $sql = "SELECT * FROM user_info WHERE username='$username' AND password='$password'";
+     $resultset = $connection->query($sql);
 
-     if($resultset->num_rows != 0){
-          $row = $resultset->fetch_assoc();
+     if(sizeof($resultset) != 0){
+          $row = $resultset->fetch(PDO::FETCH_ASSOC);
           $verified = $row['verified'];
-          $email = $row['email'];
 
           if($verified == 1){
-               echo "Your account is verified and you have now been logged in";
+               echo "You have now been logged in";
                
           }
           else{
-               $error = "This account has not yet been verified. An email was sent to $email to $username";
+                echo "This account has not yet been verified.";
           }
      }
      else{
-          $error = "The username or password you entered is incorrect";
+          echo "The username or password you entered is incorrect";
      }
 }
 ?>
