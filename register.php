@@ -1,6 +1,5 @@
 <?php
-    $error = NULL;
-    session_start();
+
 	require 'config/setup.php';
 
 	if(isset($_POST['submit']))
@@ -10,23 +9,34 @@
         $password = sha1($_POST['password']);
         $vkey = md5(time().$username);
         
-        $check = $connection->prepare("SELECT `email` FROM `user_info` WHERE `email`=?");
-		$check->bindValue(1, $email);
-		$check->execute();
 
-        if (strlen($username) < 3){
-            echo "Username must be atleast 3 characters";
+        function AlreadyExists($user){
+            $email = "SELECT * FROM user_info WHERE email='$user'";
+            $username = "SELECT * FROM user_info WHERE username='$user'";
+            global $connection;
+
+            $checkemail = $connection->query($email);
+            $checkuser = $connection->query($username);
+        
+            if ($checkemail->rowCount() > 0 || $checkuser->rowCount() > 0){
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+
+        if (!AlreadyExists($_POST['username'])){
+            echo "Username already exists";
+        }
+        else if (!AlreadyExists($_POST['email'])){
+            echo "Email already exists";
         }
         else if ($_POST['password'] != $_POST['conpassword']){
             echo "Passwords do not match!";
         }
-        //else if(!preg_match('/(?=.*?[0-9])(?=.*?[A-Za-z])(?=.*[^0-9A-Za-z]).+', $password)) { 
-        //    echo "Password must contain:<br>
-        //    - At least one number<br>
-        //    - At least one letter";
-        //}
-        else if($check->rowCount() > 0){
-            echo "E-mail already in use";
+        else if (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $_POST['password'])) {
+            echo "Passwords must contain numbers and letters";
         }
         else
         {
@@ -46,8 +56,6 @@
                 $headers .= "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 mail("$email", "$subject", "$message", "$headers");
-
-                //header('location:login.php');
 
                 $connection->commit();
     
@@ -73,7 +81,7 @@
 <body>
     
     <div>
-		<form method="POST" action="register.php">
+		<form method="POST">
         
             <input type="text" name="username" placeholder="Username" required>
             <br>

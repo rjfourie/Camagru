@@ -1,8 +1,7 @@
 <?php
 
-$error = NULL;
-
 require 'config/setup.php';
+
 session_start();  
  
 if(isset($_POST["login"]))  
@@ -18,7 +17,8 @@ if(isset($_POST["login"]))
           $verified = $row['verified'];
 
           if($verified == 1){
-               echo "You have now been logged in";
+               $_SESSION["username"] = $_POST["username"];
+               header("location:login-success.php");
                
           }
           else{
@@ -42,18 +42,18 @@ if(isset($_POST["login"]))
 	<p><a href="index.php">home</a></p>
 <body>
 	<div>
-		<form method="POST" action="login.php">
+		<form method="POST">
 
-			<input type="text" name="username" placeholder="Username">
+			<input type="text" name="username" placeholder="Username" required>
 			<br>
 
-			<input type="password" name="password" placeholder="Password">
+			<input type="password" name="password" placeholder="Password" require>
 			<br>
 
 			<input type="submit" name="login" value="login">
 		</form>
-		<p>Not registered yet? <a href="register.php">Sign up</a></p>
+          <p><a href="reset-password.php">Forgot password?</a></p>
+		<p>Not registered yet?  <a href="register.php">Sign up</a></p>
 	</div>
-<?php echo $error; ?>
 </body>
 </html>
