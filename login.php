@@ -52,7 +52,7 @@ if(isset($_POST["login"]))
 
 			<input type="submit" name="login" value="login">
 		</form>
-          <p><a href="reset-password.php">Forgot password?</a></p>
+          <p><a href="forgot-password.php">Forgot password?</a></p>
 		<p>Not registered yet?  <a href="register.php">Sign up</a></p>
 	</div>
 </body>
