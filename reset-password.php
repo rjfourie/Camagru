@@ -1,5 +1,7 @@
 <?php
 
+require 'config/setup';
+
 if (isset($_POST['password-reset'])) {
     $selector = bin2hex(random_bytes(8));
     $token =  random_bytes(32);
@@ -7,6 +9,8 @@ if (isset($_POST['password-reset'])) {
     $url = "http://localhost:8080/camagru/reset-password?selector=?" . $selector . "&validator=" . bin2hex($token);
 
     $expires = date("U") + 1800;
+
+    $username = 
 }
 else {
     header("location:index.php");
