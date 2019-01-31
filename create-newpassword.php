@@ -23,10 +23,10 @@ if(isset($_POST['submit']))
         try
         {
             $password = sha1($_POST['password']);
-            $sql = "UPDATE `user_info` SET `password`=`$password` WHERE `vkey`='$vkey'";
-            $connection->exec($sql);
+            $sql = $connection->prepare("UPDATE `user_info` SET `password`='$password' WHERE `vkey`='$vkey'");
+            $sql->execute();
             header("location:index.php?success=your_password_has_been_updated");
-
+            exit();
         }
 
         catch(PDOException $e)
