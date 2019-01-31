@@ -1,5 +1,5 @@
 <?php
-
+    require 'functions.php';
 	require 'config/setup.php';
 
 	if(isset($_POST['submit']))
@@ -8,23 +8,6 @@
         $email = $_POST['email'];
         $password = sha1($_POST['password']);
         $vkey = md5(time().$username);
-        
-
-        function AlreadyExists($user){
-            $email = "SELECT * FROM user_info WHERE email='$user'";
-            $username = "SELECT * FROM user_info WHERE username='$user'";
-            global $connection;
-
-            $checkemail = $connection->query($email);
-            $checkuser = $connection->query($username);
-        
-            if ($checkemail->rowCount() > 0 || $checkuser->rowCount() > 0){
-                return false;
-            }
-            else {
-                return true;
-            }
-        }
 
         if (!AlreadyExists($_POST['username'])){
             echo "Username already exists";
@@ -86,7 +69,7 @@
             <input type="text" name="username" placeholder="Username" required>
             <br>
             
-            <input type="email" name="email" placeholder="E-mail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="example@example.com">
+            <input type="email" name="email" placeholder="E-mail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="example@example.com" required>
             <br>
                  
             <input type="password" name="password" placeholder="Password" required>
