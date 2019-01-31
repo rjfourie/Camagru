@@ -5,7 +5,6 @@ require 'config/setup.php';
 if (isset($_POST['password-reset'])) {
     $email = $_POST['email'];
     $stmt = "SELECT * FROM user_info WHERE email='$email'";
-    // $connection->prepare("SELECT * FROM user_info WHERE email='$email'");
     $result = $connection->query($stmt);
     $row = $result->fetch(PDO::FETCH_ASSOC);
     $vkey = $row['vkey'];
