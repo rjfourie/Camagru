@@ -14,6 +14,7 @@ if(isset($_POST["login"]))
 
      if(sizeof($resultset) != 0){
           $row = $resultset->fetch(PDO::FETCH_ASSOC);
+          $_SESSION['user_id'] = $row['user_id'];
           $verified = $row['verified'];
 
           if($verified == 1){

@@ -3,12 +3,10 @@ require 'functions.php';
 require 'config/setup.php';
 session_start();
 
+$user_id = $_SESSION['user_id'];
+echo($user_id);
 if(isset($_POST['submit']))
 {
-    if (!AlreadyExists($_POST['username'])){
-        echo "Username already exists";
-    }
-    else
     {
         try
         {
