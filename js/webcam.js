@@ -10,15 +10,13 @@
         navigator.mozGetUserMedia ||
         navigator.msGetUserMedia);
 
-    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({
+    navigator.getMedia({
             video: true,
             audio: false
-        }).then(function(stream) {
-            video.srcObject = stream;
+        }),(function(stream) {
+            video.src = vendorURL.createObjectURL(stream);
             video.play();
         });
-    }
 
     document.getElementById("capture").addEventListener('click', function() {
         context.drawImage(video, 0, 0, 400, 300);
