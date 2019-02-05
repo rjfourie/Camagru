@@ -8,7 +8,7 @@
 </head>
 <body>
     <p><a href="index.php">Back</a></p>
-    <div class="booth">
+    <div>
         <video id="video" width="400" height="300" ></video>
         <button id="capture"> Take Photo</button>
         <canvas id="canvas" width="400" height="300"></canvas>
