@@ -8,11 +8,11 @@
 </head>
 <body>
     <p><a href="index.php">Back</a></p>
-    <div>
+    <div class="booth">
         <video id="video" width="400" height="300" ></video>
         <button id="capture"> Take Photo</button>
         <canvas id="canvas" width="400" height="300"></canvas>
-
-        <script> src="js/webcam.js"</script>
+    </div>
+        <script src="js/webcam.js"></script>
 </body>
 </html>
