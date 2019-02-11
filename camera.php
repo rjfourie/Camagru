@@ -3,14 +3,17 @@
 require 'config/setup.php';
 session_start();
 
-if (isset($_POST['save']))
+if (isset($_SESSION['username'])) {
+    echo '<h3> Login Success, Welcome - '.$_SESSION['username']. '</h3>';
+}
+
+else if (isset($_POST['save']))
 {
     $img = $_POST['image'];
     $name = $_SESSION['username'];
     $userid = $_SESSION['user_id'];
     try
-    {
-        echo "try ";              
+    {             
         $sql = "INSERT INTO `gallery` ( `user_id`, `username`, `img`, `likes`) VALUES ('$userid','$name','$img',NULL)";
         $connection->exec($sql);
     }
@@ -18,6 +21,11 @@ if (isset($_POST['save']))
     {
         echo "Error: " . $e->getMessage();
     }
+}
+
+else {
+    header("location:login.php");
+    echo("An error occurred with logging in");
 }
 
 ?>
@@ -31,7 +39,10 @@ if (isset($_POST['save']))
     <title>Camera</title>
 </head>
 <body>
-    <p><a href="index.php">Back</a></p>
+    <p><a href="index.php">Home</a></p>
+    <p><a href="change-username.php">Change username</a></p>
+    <p><a href="create-newpassword.php">Change password</a></p>
+    <p><a href="logout.php">Logout</a></p>
     <form method="post">
     <div>
         <input type="hidden" name="image" id="img">

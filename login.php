@@ -19,7 +19,7 @@ if(isset($_POST["login"]))
 
           if($verified == 1){
                $_SESSION["username"] = $_POST["username"];
-               header("location:login-success.php");
+               header("location:camera.php");
                
           }
           else{
