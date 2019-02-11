@@ -16,4 +16,14 @@
 
     $connection->exec($sql);
 
+    $sql = "CREATE TABLE IF NOT EXISTS gallery (
+        `id` INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+        `user_id` INT(100),
+        `username` VARCHAR(255),
+        `img` MEDIUMTEXT,
+        `likes` MEDIUMINT
+        )";
+ 
+     $connection->exec($sql);
+
 ?>
