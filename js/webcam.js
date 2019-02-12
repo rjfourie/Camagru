@@ -1,9 +1,11 @@
 (function() {
-    var video = document.getElementById('video');
-    var canvas = document.getElementById('canvas');
-    var context = canvas.getContext('2d');
-    var img;
-    var vendorURL = window.URL || window.webkitURL;
+    var video = document.getElementById('video'),
+    canvas = document.getElementById('canvas'),
+    context = canvas.getContext('2d'),
+    mask = document.getElementById('mask'),
+    hundred = document.getElementById('hundred'),
+    thuglife = document.getElementById('thuglife'),
+    vendorURL = window.URL || window.webkitURL;
 
     navigator.getMedia =    navigator.getUserMedia ||
                             navigator.webkitGetUserMedia ||
@@ -21,9 +23,20 @@
             // error.code
         });
 
+        mask.addEventListener('click', function(){
+            context.drawImage(mask, 30, 60, 350, 175);
+        })
+
+        hundred.addEventListener('click', function() {
+            context.drawImage(hundred, 290, 10, 105, 100);
+        })
+
+        thuglife.addEventListener('click', function(){
+            context.drawImage(thuglife, 150, 50, 140, 100);
+        })
+
         document.getElementById('capture').addEventListener('click', function () {
             context.drawImage(video, 0, 0, 400, 300);
             document.getElementById('img').value = canvas.toDataURL("img/png");
         });
-
 })();
