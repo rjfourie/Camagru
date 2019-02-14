@@ -68,7 +68,7 @@ if (isset($_POST['save']))
   		<button type="submit" name="upload">Upload Image</button>
   	</div>
   </form>
-    <div class="booth">
+    <div>
         <video id="video" width="400" height="300" ></video>
         <button id="capture"> Take Photo</button>
         <canvas id="canvas" width="400" height="300"></canvas>
@@ -79,9 +79,9 @@ if (isset($_POST['save']))
         <button type="submit" name="save" id="save">Save Photo</button>
     </div>
     </form>
-    <p><img id="mask" src="img/mask.png" height="80px">
+    <p><img id="WSL" src="img/WSL.png" height="80px">
     <img id="hundred" src="img/hundred.png" height="80px">
-    <img id="thuglife" src="img/thuglife.png" height="80px"></p>
+    <img id="alien" src="img/alien.png" height="80px"></p>
         <script src="js/webcam.js"></script>
 </body>
 </html>

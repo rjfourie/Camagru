@@ -2,10 +2,9 @@
     var video = document.getElementById('video'),
     canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d'),
-    mask = document.getElementById('mask'),
+    WSL = document.getElementById('WSL'),
     hundred = document.getElementById('hundred'),
-    thuglife = document.getElementById('thuglife'),
-    vendorURL = window.URL || window.webkitURL;
+    alien = document.getElementById('alien');
 
     navigator.getMedia =    navigator.getUserMedia ||
                             navigator.webkitGetUserMedia ||
@@ -23,16 +22,16 @@
             // error.code
         });
 
-        mask.addEventListener('click', function(){
-            context.drawImage(mask, 30, 60, 350, 175);
+        WSL.addEventListener('click', function(){
+            context.drawImage(WSL, 10, 150, 150, 150);
         })
 
         hundred.addEventListener('click', function() {
-            context.drawImage(hundred, 290, 10, 105, 100);
+            context.drawImage(hundred, 290, 200, 105, 100);
         })
 
-        thuglife.addEventListener('click', function(){
-            context.drawImage(thuglife, 150, 50, 140, 100);
+        alien.addEventListener('click', function(){
+            context.drawImage(alien, 110, 10, 200, 250);
         })
 
         document.getElementById('capture').addEventListener('click', function () {
