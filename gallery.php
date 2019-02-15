@@ -7,11 +7,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Camagru</title>
+    <title>Gallery</title>
 </head>
+<h1>Gallery</h1>
 <body>
-    <p><a href="Gallery.php">Gallery</a></p>
-    <p><a href="login.php">Login</a></p>
-    <p><a href="register.php">Register</a></p>
+
 </body>
 </html>

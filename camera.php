@@ -4,7 +4,10 @@ require 'config/setup.php';
 session_start();
 
 if (isset($_SESSION['username'])) {
-    echo '<h3> Login Success, Welcome - '.$_SESSION['username']. '</h3>';
+    echo '<h3> User: '.$_SESSION['username']. '</h3>';
+}
+else { 
+    header("location:login.php?An-error-occured-logging-in");
 }
 
 if (isset($_POST['upload']))
@@ -56,6 +59,7 @@ if (isset($_POST['save']))
 </head>
 <body>
     <p><a href="index.php">Home</a></p>
+    <p><a href="Gallery.php">Gallery</a></p>
     <p><a href="change-username.php">Change username</a></p>
     <p><a href="create-newpassword.php">Change password</a></p>
     <p><a href="logout.php">Logout</a></p>
