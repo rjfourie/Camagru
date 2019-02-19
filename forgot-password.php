@@ -11,7 +11,7 @@ if (isset($_POST['password-reset'])) {
 
 
     
-    $subject = "Email verification";
+    $subject = "Forgot Password";
     $message = "<a href='http://localhost:8080/camagru/create-newpassword.php?vkey=$vkey'>Reset Password</a>";
     $headers = "From: Camagru@rfourie.co.za \r\n";
     $headers .= "MIME-Version: 1.0" . "\r\n";

@@ -9,7 +9,7 @@ if(isset($_POST["login"]))
      $username = $_POST['username'];
      $password = sha1($_POST['password']);
 
-     $sql = "SELECT * FROM user_info WHERE username='$username' AND password='$password'";
+     $sql = "SELECT * FROM user_info WHERE `username`='$username' AND `password`='$password'";
      $resultset = $connection->query($sql);
 
      if(sizeof($resultset) != 0){

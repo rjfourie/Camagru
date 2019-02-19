@@ -1,5 +1,19 @@
 <?php
     require_once 'config/setup.php';
+
+    try
+    {
+        $stmt = "SELECT * FROM gallery";
+        $res = $connection->query($stmt);
+        while ($new = $res->fetch())
+        {
+            
+        }
+    }
+    catch(PDOException $e)
+    {
+        echo "ERROR";
+    }
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,6 +25,5 @@
 </head>
 <h1>Gallery</h1>
 <body>
-
 </body>
 </html>
