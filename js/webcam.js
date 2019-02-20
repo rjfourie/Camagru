@@ -1,4 +1,3 @@
-(function() {
     var video = document.getElementById('video'),
     canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d'),
@@ -38,4 +37,3 @@
             context.drawImage(video, 0, 0, 400, 300);
             document.getElementById('img').value = canvas.toDataURL("img/png");
         });
-})();

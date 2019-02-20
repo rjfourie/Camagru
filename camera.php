@@ -83,9 +83,9 @@ if (isset($_POST['save']))
         <button type="submit" name="save" id="save">Save Photo</button>
     </div>
     </form>
-    <p><img id="WSL" src="stickers/WSL.png" height="80px">
-    <img id="hundred" src="stickers/hundred.png" height="80px">
-    <img id="alien" src="stickers/alien.png" height="80px"></p>
+    <button><img id="WSL" src="stickers/WSL.png" height="100px"></button>
+    <button><img id="hundred" src="stickers/hundred.png" height="100px"></button>
+    <button><img id="alien" src="stickers/alien.png" height="100px"></button>
         <script src="js/webcam.js"></script>
 </body>
 </html>
