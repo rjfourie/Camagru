@@ -86,6 +86,7 @@ if (isset($_POST['save']))
     <button><img id="wsl" src="stickers/wsl.png" height="100px"></button>
     <button><img id="hundred" src="stickers/hundred.png" height="100px"></button>
     <button><img id="alien" src="stickers/alien.png" height="100px"></button>
-        <script src="js/webcam.js"></script>
+    <script src="js/webcam.js">
+    </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-    var video = document.getElementById('video'),
+var video = document.getElementById('video'),
     canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d'),
     wsl = document.getElementById('wsl'),
@@ -35,5 +35,8 @@
 
         document.getElementById('capture').addEventListener('click', function () {
             context.drawImage(video, 0, 0, 400, 300);
+        });
+
+        document.getElementById('save').addEventListener('click', function(){
             document.getElementById('img').value = canvas.toDataURL("img/png");
         });
