@@ -60,8 +60,7 @@ if (isset($_POST['save']))
 <body>
     <p><a href="index.php">Home</a></p>
     <p><a href="Gallery.php">Gallery</a></p>
-    <p><a href="change-username.php">Change username</a></p>
-    <p><a href="create-newpassword.php">Change password</a></p>
+    <p><a href="change-details.php">Change details</a></p>
     <p><a href="logout.php">Logout</a></p>
     
 <form method="POST" enctype="multipart/form-data">
@@ -83,7 +82,7 @@ if (isset($_POST['save']))
         <button type="submit" name="save" id="save">Save Photo</button>
     </div>
     </form>
-    <button><img id="wsl" src="stickers/wsl.png" height="100px"></button>
+    <button><img id="WSL" src="stickers/WSL.png" height="100px"></button>
     <button><img id="hundred" src="stickers/hundred.png" height="100px"></button>
     <button><img id="alien" src="stickers/alien.png" height="100px"></button>
     <script src="js/webcam.js">

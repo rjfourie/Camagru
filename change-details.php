@@ -7,6 +7,10 @@ $user_id = $_SESSION['user_id'];
 
 if(isset($_POST['submit']))
 {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = sha1($_POST['password']);
+
     if (!AlreadyExists($_POST['username'])){
         echo "Username already exists";
     }
@@ -17,21 +21,22 @@ if(isset($_POST['submit']))
         echo "Passwords must contain numbers and letters";
     }
 
-    $username = $_POST['username'];
-    $password = sha1($_POST['password']);
-	
-    try
+    else
     {
-        $username = $_POST['username'];
-        $sql = $connection->prepare("UPDATE `user_info` SET `username`=?, `password`=? WHERE `user_id`='$user_id'");
-        $sql->execute(array($username,$password));
-        header("location:camera.php?success=your_details_has_been_updated");
-        exit();
-    }
+        try
+        {
+            $username = $_POST['username'];
+            $sql = $connection->prepare("UPDATE `user_info` SET `username`=?, `email`=?, `password`=? WHERE `user_id`='$user_id'");
+            $sql->execute(array($username,$email,$password));
+            session_destroy();
+            header("location:login.php?success=your_details_has_been_updated");
+            exit();
+        }
 
-    catch(PDOException $e)
-    {
-        echo $sql . "\n" . $e->getMessage();
+        catch(PDOException $e)
+        {
+            echo $sql . "\n" . $e->getMessage();
+        }
     }
 }
 
@@ -46,22 +51,18 @@ if(isset($_POST['submit']))
     <title>Register</title>
 </head>
 	<p><a href="index.php">home</a></p>
-<body>
-    
+<body> 
     <div>
 		<form method="POST">
-        
             <input type="text" name="username" placeholder="Username" required>
             <br>
-
-            <input type="password" name="password" placeholder="Password" required>
+            <input type="email" name="email" placeholder="E-mail"  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="example@example.com" required>
             <br>
-                 
+            <input type="password" name="password" placeholder="Password" required>
+            <br> 
             <input type="password" name="conpassword" placeholder="Confirm Password" required>
             <br>
-                
             <input type="submit" name="submit" value="submit">
-            
 		</form>
 	</div>
 </body>

@@ -1,7 +1,7 @@
 var video = document.getElementById('video'),
     canvas = document.getElementById('canvas'),
     context = canvas.getContext('2d'),
-    wsl = document.getElementById('wsl'),
+    WSL = document.getElementById('WSL'),
     hundred = document.getElementById('hundred'),
     alien = document.getElementById('alien');
 
@@ -21,7 +21,7 @@ var video = document.getElementById('video'),
             // error.code
         });
 
-        wsl.addEventListener('click', function(){
+        WSL.addEventListener('click', function(){
             context.drawImage(WSL, 10, 150, 150, 150);
         })
 
