@@ -17,7 +17,7 @@ if (isset($_POST['upload']))
     $userid = $_SESSION['user_id'];
     try
     {             
-        $sql = "INSERT INTO `gallery` ( `user_id`, `username`, `img`, `likes`) VALUES ('$userid','$name','$img',NULL)";
+        $sql = "INSERT INTO `gallery` (`user_id`, `username`, `img`, `likes`) VALUES ('$userid','$name','$img',NULL)";
         $connection->exec($sql);
     }
     catch(PDOException $e)

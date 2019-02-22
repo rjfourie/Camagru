@@ -17,11 +17,7 @@
         $res = $connection->query($stmt);
         while ($new = $res->fetch())
         {
-            echo '<form method="post" action="gallery.phtml">';
             echo "<td><img src=\"".$new['img']."\" alt=\"\" class='gallery' width='500' height='400'></td>";
-            echo '</a>';
-            echo "<input type='hidden' value=\"".$new['id']."\" name='id'>";
-            echo '</div>';
         }
     }
     catch(PDOException $e)
