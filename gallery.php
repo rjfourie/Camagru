@@ -13,11 +13,11 @@
 
     try
     {
-        $stmt = "SELECT * FROM gallery";
+        $stmt = "SELECT * FROM gallery ORDER BY id DESC";
         $res = $connection->query($stmt);
         while ($new = $res->fetch())
         {
-            echo "<td><img src=\"".$new['img']."\" alt=\"\" class='gallery' width='500' height='400'></td>";
+            echo "<td><img src=\"".$new['img']."\" width='400' height='300'></td>";
         }
     }
     catch(PDOException $e)
