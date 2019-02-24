@@ -40,3 +40,7 @@ var video = document.getElementById('video'),
         document.getElementById('save').addEventListener('click', function(){
             document.getElementById('img').value = canvas.toDataURL("img/png");
         });
+
+        document.getElementById('upload').addEventListener('click', function(){
+            document.getElementById('img').value = canvas.toDataURL("img/png");
+        });

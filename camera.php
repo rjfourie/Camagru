@@ -12,12 +12,12 @@ else {
 
 if (isset($_POST['upload']))
 {
-    $img = $_POST['image'];
+    $image = $_FILES['image']['name'];
     $name = $_SESSION['username'];
     $userid = $_SESSION['user_id'];
     try
     {             
-        $sql = "INSERT INTO `gallery` (`user_id`, `username`, `img`, `likes`) VALUES ('$userid','$name','$img',0)";
+        $sql = "INSERT INTO `gallery` (`user_id`, `username`, `img`, `likes`) VALUES ('$userid','$name','$image',0)";
         $connection->exec($sql);
     }
     catch(PDOException $e)
@@ -59,8 +59,8 @@ if (isset($_POST['save']))
 </head>
 <body>
     <p><a href="index.php">Home</a></p>
-    <p><a href="Gallery.php">Gallery</a></p>
-    <p><a href="change-details.php">Change details</a></p>
+    <p><a href="gallery.php">Gallery</a></p>
+    <p><a href="update.php">Update details</a></p>
     <p><a href="logout.php">Logout</a></p>
     
 <form method="POST" enctype="multipart/form-data">

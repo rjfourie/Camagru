@@ -10,7 +10,7 @@
     <title>Camagru</title>
 </head>
 <body>
-    <p><a href="gallery.php">Gallery</a></p>
+    <p><a href="punlic-gallery.php">Public Gallery</a></p>
     <p><a href="login.php">Login</a></p>
     <p><a href="register.php">Register</a></p>
 </body>

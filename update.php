@@ -20,14 +20,17 @@ if(isset($_POST['submit']))
     else if (!preg_match('/[A-Za-z].*[0-9]|[0-9].*[A-Za-z]/', $_POST['password'])) {
         echo "Passwords must contain numbers and letters";
     }
-
+    if(isset($_POST['notify'])){
+        $notify = 1;
+    }
     else
-    {
+        $notify = 0;
+    
         try
         {
             $username = $_POST['username'];
-            $sql = $connection->prepare("UPDATE `user_info` SET `username`=?, `email`=?, `password`=? WHERE `user_id`='$user_id'");
-            $sql->execute(array($username,$email,$password));
+            $sql = $connection->prepare("UPDATE `user_info` SET `username`=?, `email`=?, `password`=?, `notify`=? WHERE `user_id`='$user_id'");
+            $sql->execute(array($username,$email,$password,$notify));
             session_destroy();
             header("location:login.php?success=your_details_has_been_updated");
             exit();
@@ -37,7 +40,6 @@ if(isset($_POST['submit']))
         {
             echo $sql . "\n" . $e->getMessage();
         }
-    }
 }
 
 ?>
@@ -50,7 +52,7 @@ if(isset($_POST['submit']))
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Register</title>
 </head>
-	<p><a href="index.php">home</a></p>
+	<p><a href="camera.php">home</a></p>
 <body> 
     <div>
 		<form method="POST">
@@ -61,6 +63,8 @@ if(isset($_POST['submit']))
             <input type="password" name="password" placeholder="Password" required>
             <br> 
             <input type="password" name="conpassword" placeholder="Confirm Password" required>
+            <br><td>
+            Notify<input type="checkbox" name="notify"></td>
             <br>
             <input type="submit" name="submit" value="submit">
 		</form>
